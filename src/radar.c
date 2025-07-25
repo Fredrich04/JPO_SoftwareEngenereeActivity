@@ -79,6 +79,9 @@ radar_t declared(void)
 
     box.font = sfFont_createFromFile("ress/Arialn.ttf");
     box.text = sfText_create();
+    box.QRcode = sfSprite_create();
+    box.Qtext = sfTexture_createFromFile("ress/SO.png", NULL);
+    sfSprite_setTexture(box.QRcode, box.Qtext, sfTrue);
     sfText_setFont(box.text, box.font);
     sfText_setCharacterSize(box.text, 50);
     box.pos2 = (sfVector2f){80000, 80000};

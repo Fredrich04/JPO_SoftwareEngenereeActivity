@@ -13,7 +13,7 @@
 
     #define DELAY 0.1
     #define COLLISION 10
-    #define STORY "Congratulations!!\nA step for the E-vengers in\nthe liberation of the digital world"
+    #define STORY "Congratulations!!\nA step for the E-vengers in\nthe liberation of the digital world\n\nHere is your reward"
 
     #include <fcntl.h>
     #include <stdlib.h>
@@ -34,7 +34,7 @@ typedef struct radar_t {
     int time;
     sfFont *font;
     sfText *text;
-    sfSprite *sprite, *gen;
+    sfSprite *sprite, *gen, *QRcode;
     sfVideoMode mode;
     sfRectangleShape *rectangle;
     sfSprite *map;
@@ -43,9 +43,8 @@ typedef struct radar_t {
     float frameTime;
     sfTime elapsedTime;
     sfClock *clock;
-    sfTexture *map_text, *gen_text;
+    sfTexture *map_text, *gen_text, *Qtext;
     sfEvent event;
-    //animated_text_t *anim;
     int sp;
 } radar_t;
 
@@ -160,16 +159,12 @@ void destroy(radar_t box, Defense **t, Missil **p);
             break;                                            \
     }
 
-#define SETUP_ANIMATION(anim, box_ptr)                                       \
+#define SETUP_ANIMATION(anim, box_ptr, win)                                       \
     sfClock_restart((box_ptr)->clock);                                      \
-    anim = create_animated_text(STORY, *(box_ptr), 50, (sfVector2f){100, 100});
+    anim = create_animated_text(STORY, *(box_ptr), 50, (sfVector2f){100, 100}); \
+    win = sfMusic_createFromFile("ress/succes.mp3");\
+    sfMusic_play(win);
 
-
-#define PLAY_SUCCESS_MUSIC(win)                        \
-    do {                                               \
-        win = sfMusic_createFromFile("ress/succes.mp3");\
-        sfMusic_play(win);                             \
-    } while (0)
 
 #define DISPLAY_ANIMATED_TEXT_LOOP(box, anim, t, p)    \
     do {                                               \
@@ -180,6 +175,10 @@ void destroy(radar_t box, Defense **t, Missil **p);
             sfRenderWindow_drawSprite(box.window, box.gen, NULL); \
             typing_animation(anim);                    \
             draw_animated_text(box.window, anim);      \
+            if (anim->index >= strlen(anim->full_string)) {   \
+                sfSprite_setPosition(box.QRcode, (sfVector2f){200, 450});   \
+                sfRenderWindow_drawSprite(box.window, box.QRcode, NULL);    \
+            }   \
             display(box);                              \
         }                                              \
     } while (0)

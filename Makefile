@@ -15,9 +15,9 @@ SRC	=	src/*.c
 
 SRCB	=	bonus/*.c
 
-NAME	=	my_radar
+NAME	=	radar
 
-NAMEB	=	my_radar
+NAMEB	=	radar
 
 all: $(NAME)
 

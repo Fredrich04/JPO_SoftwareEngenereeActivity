@@ -16,17 +16,17 @@ const char *end_5x5[] = {
     " #####  ####  #   #  #####  #    # #    #   #    ####  ##### #    #   #   #####  ####  #   #  ##"
 };
 
-int radar(Defense **t, Missil **p) {
+int radar(Defense **t, Missil **p) 
+{
     radar_t box;
     radar_t *box_ptr = &box;
     animated_text_t *anim; 
     sfMusic *win;
 
-    // A ordonner     
+    // A ordonner
     INIT_SIMULATION(t, p, box_ptr);
     MAIN_LOOP(box_ptr, t, p);
-    SETUP_ANIMATION(anim, box_ptr);
-    PLAY_SUCCESS_MUSIC(win);
+    SETUP_ANIMATION(anim, box_ptr, win);
     DISPLAY_ANIMATED_TEXT_LOOP(box, anim, t, p);
     CLEANUP(box, t, p);
     
