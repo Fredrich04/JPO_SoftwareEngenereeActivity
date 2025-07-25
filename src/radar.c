@@ -78,6 +78,7 @@ radar_t declared(void)
     radar_t box;
 
     box.font = sfFont_createFromFile("ress/Arialn.ttf");
+    box.boom = sfMusic_createFromFile("ress/boom.mp3");
     box.text = sfText_create();
     box.QRcode = sfSprite_create();
     box.Qtext = sfTexture_createFromFile("ress/SO.png", NULL);
@@ -104,6 +105,14 @@ void destroy(radar_t box, Defense **t, Missil **p)
     destroy_plane_list(p);
     sfSprite_destroy(box.map);
     sfClock_destroy(box.clock);
+    sfFont_destroy(box.font);
+    sfSprite_destroy(box.gen);
+    sfSprite_destroy(box.QRcode);
+    sfTexture_destroy(box.gen_text);
+    sfText_destroy(box.text);
+    sfTexture_destroy(box.map_text);
+    sfTexture_destroy(box.Qtext);
+    sfMusic_destroy(box.boom);
     sfRenderWindow_destroy(box.window);
 }
 
@@ -120,6 +129,7 @@ radar_t start(radar_t box, Defense **t, Missil **p)
         while (en) {
             if (def->id == en->id) {
                 if (fabs(def->ac.y - en->ac.y) < 5) {
+                    sfMusic_play(box.boom);
                     def->s = 0;
                     en->s = 0;
                 }

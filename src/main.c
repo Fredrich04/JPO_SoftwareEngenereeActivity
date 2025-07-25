@@ -28,7 +28,7 @@ int radar(Defense **t, Missil **p)
     MAIN_LOOP(box_ptr, t, p);
     SETUP_ANIMATION(anim, box_ptr, win);
     DISPLAY_ANIMATED_TEXT_LOOP(box, anim, t, p);
-    CLEANUP(box, t, p);
+    CLEANUP(box, t, p, win, anim);
     
     
     return 0;

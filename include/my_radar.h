@@ -36,6 +36,7 @@ typedef struct radar_t {
     sfText *text;
     sfSprite *sprite, *gen, *QRcode;
     sfVideoMode mode;
+    sfMusic *boom, *game;
     sfRectangleShape *rectangle;
     sfSprite *map;
     sfVector2f pos;
@@ -183,9 +184,13 @@ void destroy(radar_t box, Defense **t, Missil **p);
         }                                              \
     } while (0)
 
-#define CLEANUP(box, t, p)                             \
+#define CLEANUP(box, t, p, win, anim)                             \
     do {                                               \
-        destroy(box, t, p);                            \
+        destroy(box, t, p);                                \
+        sfMusic_destroy(win);                            \
+        sfText_destroy(anim->text); \
+        sfClock_destroy(anim->clock);   \
+        free(anim); \
     } while (0)
 
 #define CHECK_SIMULATION_END(p, should_break)          \

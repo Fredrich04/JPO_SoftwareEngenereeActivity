@@ -23,7 +23,7 @@ all: $(NAME)
 
 $(NAME):	$(SRC)
 	make -C lib/ && make clean -C lib/
-	gcc -o $(NAME) $(SRC) $(FLAGS) $(MYLIB)
+	gcc -o $(NAME) $(SRC) $(FLAGS) $(MYLIB) -g3
 
 check:
 	make -C lib/ && make clean -C lib/
